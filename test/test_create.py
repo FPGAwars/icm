@@ -1,7 +1,7 @@
 from os import getcwd
 from os.path import join, isdir, isfile, getsize
 
-from icm.__main__ import create as cmd
+from icm.__main__ import create
 
 
 def validate_create():
@@ -19,6 +19,6 @@ def validate_create():
 
 def test_create(clirunner, validate_cliresult):
     with clirunner.isolated_filesystem():
-        result = clirunner.invoke(cmd)
+        result = clirunner.invoke(create)
         validate_cliresult(result)
         validate_create()
