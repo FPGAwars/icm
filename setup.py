@@ -16,7 +16,8 @@ setup(
     license=__license__,
     packages=['icm'],
     package_data={
-        'icm': ['commands/*.py']
+        'icm': ['commands/*.py',
+                'resources/*']
     },
     install_requires=[
         'click>=6,<7',
