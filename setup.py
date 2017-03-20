@@ -21,7 +21,8 @@ setup(
     },
     install_requires=[
         'click>=6,<7',
-        'colorama'
+        'colorama',
+        'semantic_version>=2.5.0'
     ],
     entry_points={
         'console_scripts': ['icm=icm.__main__:cli']
