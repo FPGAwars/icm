@@ -4,20 +4,16 @@
 # -- Author Jesús Arroyo
 # -- Licence GPLv2
 
-import click
-
-from sys import exit as sys_exit
-
-from icm.commands import cmd_init
-
-
-@click.group()
-@click.version_option()
-def cli():
-    pass
+# Collection structure:
+#
+# - blocks
+# - examples
+# - locale
+# - LICENSE
+# - package.json
+# - README.md
 
 
-@cli.command()
 def init():
     """Initialize a collection structure."""
-    cmd_init.init()
+    pass

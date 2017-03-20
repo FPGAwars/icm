@@ -15,6 +15,9 @@ setup(
     url=__url__,
     license=__license__,
     packages=['icm'],
+    package_data={
+        'icm': ['commands/*.py']
+    },
     install_requires=[
         'click>=6,<7',
         'colorama'
