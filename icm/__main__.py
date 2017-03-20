@@ -6,8 +6,6 @@
 
 import click
 
-from sys import exit as sys_exit
-
 from icm.commands import cmd_create, cmd_validate
 
 
