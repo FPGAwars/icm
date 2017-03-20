@@ -8,7 +8,7 @@ import click
 
 from sys import exit as sys_exit
 
-from icm.commands import cmd_init
+from icm.commands import cmd_create, cmd_validate
 
 
 @click.group()
@@ -18,6 +18,12 @@ def cli():
 
 
 @cli.command()
-def init():
-    """Initialize a collection structure."""
-    cmd_init.init()
+def create():
+    """Create a collection structure."""
+    cmd_create.create()
+
+
+@cli.command()
+def validate():
+    """Validate a collection structure."""
+    cmd_validate.validate()

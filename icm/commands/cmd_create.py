@@ -14,14 +14,13 @@
 # - README.md
 
 import os
-import json
 import click
 
 
-def init():
-    """Initialize a collection structure."""
+def create():
+    """Create a collection structure."""
 
-    click.secho('Initializing a collection structure', fg='cyan')
+    click.secho('Create a collection structure', fg='cyan')
 
     # Create blocks directory
     create_directory('blocks')
