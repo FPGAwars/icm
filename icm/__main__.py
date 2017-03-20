@@ -6,7 +6,7 @@
 
 import click
 
-from icm.commands import cmd_create, cmd_validate
+from icm.commands import cmd_create, cmd_validate, cmd_update
 
 
 @click.group()
@@ -23,5 +23,11 @@ def create():
 
 @cli.command()
 def validate():
-    """Validate a collection structure."""
+    """Validate a collection."""
     cmd_validate.validate()
+
+
+@cli.command()
+def update():
+    """Update docs and translation."""
+    cmd_update.update()

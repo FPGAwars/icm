@@ -1,6 +1,3 @@
-from os import getcwd
-from os.path import join, isdir, isfile, getsize
-
 from icm.__main__ import create, validate
 
 

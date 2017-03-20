@@ -18,9 +18,9 @@ import semantic_version
 
 
 def validate():
-    """Validate a collection structure."""
+    """Validate a collection."""
 
-    click.secho('Validate the collection structure', fg='cyan')
+    click.secho('Validate the collection', fg='cyan')
 
     if validate_collection():
         click.secho('\nThe collection is valid :)', fg='green')
