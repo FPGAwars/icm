@@ -34,12 +34,12 @@ def validate_collection():
     if not (os.path.isdir('blocks') or os.path.isdir('examples')):
         valid &= False
         click.secho(
-            ' - Error: no directory \'blocks\' or \'examples\' found',
+            ' - Error: no directory `blocks` or `examples` found',
             fg='yellow')
 
     if not os.path.isfile('package.json'):
         valid &= False
-        click.secho(' - Error: no file \'package.json\' found', fg='yellow')
+        click.secho(' - Error: no file `package.json` found', fg='yellow')
     else:
         try:
             with open('package.json', 'r') as data:
@@ -48,14 +48,14 @@ def validate_collection():
                 if not ('name' in keys and package['name']):
                     valid &= False
                     click.secho(
-                        ' - Error: not valid name in \'package.json\'',
+                        ' - Error: not valid name in `package.json`',
                         fg='yellow')
 
                 if not ('version' in keys and
                    semantic_version.validate(package['version'])):
                     valid &= False
                     click.secho(
-                        ' - Error: not valid version in \'package.json\'',
+                        ' - Error: not valid version in `package.json`',
                         fg='yellow')
 
         except Exception as e:
