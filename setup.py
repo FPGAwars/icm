@@ -22,6 +22,7 @@ setup(
     install_requires=[
         'click>=6,<7',
         'colorama',
+        'polib>=1.0.8',
         'semantic_version>=2.5.0'
     ],
     entry_points={

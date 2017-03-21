@@ -8,6 +8,7 @@ import os
 import sys
 import json
 import click
+import polib
 
 from string import Template
 
@@ -34,7 +35,7 @@ def update_file(dest, data):
     if os.path.exists(dest):
         with open(dest, 'r') as f:
             if f.read() == data:
-                click.secho('`{}` file already up-to-date'.format(dest),
+                click.secho('`{}` file already updated'.format(dest),
                             fg='yellow')
             else:
                 if click.confirm('The `{}` file has changes.\n'
@@ -96,7 +97,10 @@ def getdocs():
 
             # Create the Languages section
             languages_section = ''
-            # TODO
+            languages = list_languages('locale')
+            if languages:
+                languages_section = '## Languages\n'
+                languages_section += languages
 
             # Create the Authors section
             authors_section = ''
@@ -149,7 +153,7 @@ def getdocs():
 
 
 def list_recursive_files(path, ext='.ice'):
-    tree = ''
+    data = ''
     init = True
     for root, dirs, files in os.walk(path):
         path = root.split(os.sep)
@@ -157,15 +161,44 @@ def list_recursive_files(path, ext='.ice'):
         if init:
             init = False
         else:
-            tree += item_list(os.path.basename(root), n-2)
+            data += item_list(os.path.basename(root), n-2)
         for f in files:
             if f.endswith(ext):
-                tree += item_list(os.path.splitext(f)[0], n-1)
-    return tree
+                data += item_list(os.path.splitext(f)[0], n-1)
+    return data
 
 
 def item_list(text, index=0):
     return index * '  ' + '* ' + text + '\n'
+
+
+def useattr(attr):
+    def kicker(obj):
+        print obj
+        print attr
+        return getattr(obj, attr)
+    return kicker
+
+
+def list_languages(path):
+    data = ''
+    languages = []
+    for lang in os.listdir(path):
+        langpath = os.path.join(path, lang, lang + '.po')
+        if os.path.isfile(langpath):
+            po = polib.pofile(langpath)
+            languages.append({
+                'lang': lang,
+                'progress': po.percent_translated()
+            })
+    languages = sorted(languages)
+    data = '| Language | Translated strings |\n'
+    data += '|:--------:|:------------------:|\n'
+    for language in languages:
+        data += '| ' + language['lang'] + ' | '
+        data += '![Progress](http://progressed.io/bar/'
+        data += str(language['progress']) + ') |\n'
+    return data
 
 
 def gettext():
