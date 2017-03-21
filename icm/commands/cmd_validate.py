@@ -10,6 +10,7 @@
 # - Required: package.json
 #              - name
 #              - (semantic) version
+#              - description
 
 import os
 import json
@@ -56,6 +57,12 @@ def validate_collection():
                     valid &= False
                     click.secho(
                         ' - Error: not valid version in `package.json`',
+                        fg='yellow')
+
+                if not ('description' in keys and package['description']):
+                    valid &= False
+                    click.secho(
+                        ' - Error: not valid description in `package.json`',
                         fg='yellow')
 
         except Exception as e:

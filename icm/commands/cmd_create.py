@@ -41,9 +41,9 @@ def create():
     # Create package.json file
     package = """\
 {
-  "name": "Collection",
+  "name": "MyCollection",
   "version": "0.1.0",
-  "description": "",
+  "description": "Awesome collection",
   "keywords": "",
   "license": "GPL-2.0",
   "authors": [{
@@ -61,7 +61,9 @@ def create():
     create_file('package.json', package)
 
     # Create README.md file
-    create_file('README.md', '## Collection')
+    create_file(
+        'README.md',
+        '## MyCollection\nUpdate this file using `icm update`')
 
 
 def create_directory(name):
