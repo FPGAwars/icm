@@ -12,15 +12,10 @@ $description.
 * Go to *Select > Collections* to view the installed collection
 
 $blocks
-
 $examples
-
 $languages
-
 $authors
-
 $contributors
-
 ## License
 
 Licensed under [$license](https://opensource.org/licenses/$license).

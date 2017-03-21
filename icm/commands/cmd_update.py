@@ -7,7 +7,6 @@
 import os
 import json
 import click
-import codecs
 
 from string import Template
 
@@ -59,7 +58,7 @@ def getdocs():
     readme_template = os.path.join(
         os.path.dirname(__file__), '..', 'resources', 'README.tpl.md')
 
-    with file('package.json', 'r') as p:
+    with open('package.json', 'r') as p:
         package = json.loads(p.read().decode('utf-8'))
 
         with open(readme_template, 'r') as f:
@@ -79,15 +78,21 @@ def getdocs():
                 link = 'collection'
 
             # Create the Blocks section
-            blocks = ''
-            # TODO
+            blocks_section = ''
+            blocks = list_recursive_files('blocks')
+            if blocks:
+                blocks_section = '## Blocks\n'
+                blocks_section += blocks
 
             # Create the Examples section
-            examples = ''
-            # TODO
+            examples_section = ''
+            examples = list_recursive_files('examples')
+            if examples:
+                examples_section = '## Examples\n'
+                examples_section += examples
 
             # Create the Languages section
-            languages = ''
+            languages_section = ''
             # TODO
 
             # Create the Authors section
@@ -125,15 +130,35 @@ def getdocs():
                 name=package['name'],
                 version=package['version'],
                 description=package['description'],
+                license=package.get('license'),
                 link=link,
-                blocks=blocks,
-                examples=examples,
-                languages=languages,
+                blocks=blocks_section,
+                examples=examples_section,
+                languages=languages_section,
                 authors=authors_section,
-                contributors=contributors_section,
-                license=package.get('license'))
+                contributors=contributors_section)
 
     return data
+
+
+def list_recursive_files(path, ext='.ice'):
+    tree = ''
+    init = True
+    for root, dirs, files in os.walk(path):
+        path = root.split(os.sep)
+        n = len(path)
+        if init:
+            init = False
+        else:
+            tree += item_list(os.path.basename(root), n-2)
+        for f in files:
+            if f.endswith(ext):
+                tree += item_list(os.path.splitext(f)[0], n-1)
+    return tree
+
+
+def item_list(text, index=0):
+    return index * '  ' + '* ' + text + '\n'
 
 
 def gettext():

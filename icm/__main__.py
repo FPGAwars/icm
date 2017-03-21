@@ -12,7 +12,7 @@ from icm.commands import cmd_create, cmd_validate, cmd_update
 @click.group()
 @click.version_option()
 def cli():
-    pass
+    """Icestudio collections manager"""
 
 
 @cli.command()
