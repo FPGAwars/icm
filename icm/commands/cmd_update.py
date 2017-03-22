@@ -185,12 +185,13 @@ def list_languages(path):
                 'progress': po.percent_translated()
             })
     languages = sorted(languages)
-    data = '| Language | Translated strings |\n'
-    data += '|:--------:|:------------------:|\n'
-    for language in languages:
-        data += '| ' + language['lang'] + ' | '
-        data += '![Progress](http://progressed.io/bar/'
-        data += str(language['progress']) + ') |\n'
+    if languages:
+        data = '| Language | Translated strings |\n'
+        data += '|:--------:|:------------------:|\n'
+        for language in languages:
+            data += '| ' + language['lang'] + ' | '
+            data += '![Progress](http://progressed.io/bar/'
+            data += str(language['progress']) + ') |\n'
     return data
 
 
