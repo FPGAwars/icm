@@ -65,6 +65,18 @@ def validate_collection():
                         ' - Error: not valid description in `package.json`',
                         fg='yellow')
 
+                if not ('keywords' in keys):
+                    valid &= False
+                    click.secho(
+                        ' - Error: not valid keywords in `package.json`',
+                        fg='yellow')
+
+                if not ('license' in keys):
+                    valid &= False
+                    click.secho(
+                        ' - Error: not valid license in `package.json`',
+                        fg='yellow')
+
         except Exception as e:
             valid &= False
             click.secho(str(e), fg='red')
