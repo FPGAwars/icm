@@ -4,7 +4,7 @@
 [![Latest Version](https://img.shields.io/pypi/v/icm.svg)](https://pypi.python.org/pypi/icm)
 [![License](http://img.shields.io/:license-gpl-blue.svg)](http://opensource.org/licenses/GPL-2.0)
 
-Tools for managing [Icestudio](https://github.com/FPGAwars) collections.
+Tools to manage [Icestudio](https://github.com/FPGAwars) collections.
 
 ## Install
 
@@ -16,9 +16,9 @@ pip install icm
 
 |  Command   | Description |
 |:----------:|:-----------:|
-| [create]() | Create a collection structure. |
-| [update]() | Update docs and translation. |
-| [validate]() | Validate a collection. |
+| [create](https://github.com/FPGAwars/icm/wiki#icm-create) | Create a collection structure. |
+| [update](https://github.com/FPGAwars/icm/wiki#icm-update) | Update docs and translation. |
+| [validate](https://github.com/FPGAwars/icm/wiki#icm-validate) | Validate a collection. |
 
 ## Authors
 
