@@ -5,6 +5,7 @@
 # -- Licence GPLv2
 
 import os
+import re
 import sys
 import json
 import click
@@ -155,14 +156,14 @@ def getdocs():
 def list_recursive_files(path, ext='.ice'):
     data = ''
     init = True
-    for root, dirs, files in os.walk(path):
+    for root, dirs, files in sorted(os.walk(path)):
         path = root.split(os.sep)
         n = len(path)
         if init:
             init = False
         else:
             data += item_list(os.path.basename(root), n-2)
-        for f in files:
+        for f in sorted(files):
             if f.endswith(ext):
                 data += item_list(os.path.splitext(f)[0], n-1)
     return data
@@ -170,14 +171,6 @@ def list_recursive_files(path, ext='.ice'):
 
 def item_list(text, index=0):
     return index * '  ' + '* ' + text + '\n'
-
-
-def useattr(attr):
-    def kicker(obj):
-        print obj
-        print attr
-        return getattr(obj, attr)
-    return kicker
 
 
 def list_languages(path):
@@ -201,5 +194,55 @@ def list_languages(path):
     return data
 
 
+PATTERN_DESC = '"description":\s*"(.*?)"'
+PATTERN_INFO = '"info":\s*"(.*?)"'
+
+
 def gettext():
-    return '// Translation document of the collection'
+    data = ''
+    readme_template = os.path.join(
+        os.path.dirname(__file__), '..', 'resources', 'translation.tpl.js')
+
+    with open(readme_template, 'r') as f:
+        translations = []
+        template = Template(f.read())
+
+        # Read blocks
+        find_texts('blocks', translations)
+
+        # Read examples
+        find_texts('examples', translations)
+
+        # Add gettext function
+        translations = ['gettext(\'' + t + '\');' for t in translations]
+
+        # Substitute the template
+        data = template.safe_substitute(
+            translations='\n'.join(translations))
+    return data
+
+
+def find_texts(path, translations, ext='.ice'):
+    for root, dirs, files in sorted(os.walk(path)):
+        for d in sorted(dirs):
+            # - Append directories
+            translations.append(d)
+        for f in sorted(files):
+            if f.endswith(ext):
+                # - Append files
+                translations.append(os.path.splitext(f)[0])
+                filepath = os.path.join(root, f)
+                with open(filepath, 'r') as p:
+                    project = p.read()
+                    # - Append descriptions
+                    p = re.compile(PATTERN_DESC)
+                    descriptions = p.findall(project)
+                    for description in descriptions:
+                        if description and description not in translations:
+                            translations.append(description)
+                    # - Append basic.info blocks
+                    p = re.compile(PATTERN_INFO)
+                    infos = p.findall(project)
+                    for info in infos:
+                        if info and info not in translations:
+                            translations.append(info)
