@@ -16,6 +16,8 @@
 import os
 import click
 
+from string import Template
+
 
 def create():
     """Create a collection structure."""
@@ -39,25 +41,20 @@ def create():
         create_file('LICENSE', license)
 
     # Create package.json file
-    package = """\
-{
-  "name": "MyCollection",
-  "version": "0.1.0",
-  "description": "Awesome collection",
-  "keywords": "",
-  "license": "GPL-2.0",
-  "authors": [{
-    "name": "",
-    "email": "",
-    "url": ""
-  }],
-  "contributors": [],
-  "repository": {
-    "type": "git",
-    "url": ""
-  }
-}
-"""
+    package = ''
+    package_template = os.path.join(
+        os.path.dirname(__file__), '..', 'resources', 'package.tpl.json')
+
+    with open(package_template, 'r') as f:
+        template = Template(f.read())
+
+        package = template.safe_substitute(
+            name='MyCollection',
+            version='0.1.0',
+            description='Awesome collection',
+            keywords='awesome,template',
+            license='GPL-2.0')
+
     create_file('package.json', package)
 
     # Create README.md file

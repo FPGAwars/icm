@@ -1,0 +1,17 @@
+{
+  "name": "$name",
+  "version": "$version",
+  "description": "$description",
+  "keywords": "$keywords",
+  "license": "$license",
+  "authors": [{
+    "name": "",
+    "email": "",
+    "url": ""
+  }],
+  "contributors": [],
+  "repository": {
+    "type": "git",
+    "url": ""
+  }
+}
