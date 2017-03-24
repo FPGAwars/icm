@@ -12,6 +12,7 @@
   "contributors": [],
   "repository": {
     "type": "git",
+    "branch": "master",
     "url": ""
   }
 }

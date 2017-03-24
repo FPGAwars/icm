@@ -73,17 +73,14 @@ def getdocs():
             template = Template(f.read())
 
             # Create the link
-            link = ''
+            links = ''
             if package.get('repository') and package['repository'].get('url'):
                 url = package['repository']['url']
+                branch = package['repository'].get('branch', 'master')
                 version = package['version']
-                link = '[collection]('
-                link += url
-                link += '/archive/v'
-                link += version
-                link += '.zip)'
-            else:
-                link = 'collection'
+                stable = '[stable](' + url + '/archive/v' + version + '.zip)'
+                dev = '[development](' + url + '/archive/' + branch + '.zip)'
+                links = ': ' + stable + ' or ' + dev
 
             # Create the Blocks section
             blocks_section = ''
@@ -146,7 +143,7 @@ def getdocs():
                 version=package['version'].replace('-', '--'),
                 description=package['description'],
                 license=package.get('license'),
-                link=link,
+                links=links,
                 blocks=blocks_section,
                 examples=examples_section,
                 languages=languages_section,

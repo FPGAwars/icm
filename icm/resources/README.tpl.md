@@ -7,7 +7,7 @@ $description.
 
 ## Install
 
-* Download the $link
+* Download the collection$links
 * Install the collection: *Tools > Collections > Add*
 * Load the collection: *Select > Collection*
 
