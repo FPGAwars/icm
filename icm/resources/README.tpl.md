@@ -1,4 +1,4 @@
-# $name
+# $name Collection
 
 [![Icestudio](https://img.shields.io/badge/collection-icestudio-blue.svg)](https://github.com/FPGAwars/icestudio)
 [![Version](https://img.shields.io/badge/version-v$version-orange.svg)]()
@@ -8,8 +8,8 @@ $description.
 ## Install
 
 * Download the $link
-* Go to *Tools > Collections > Add* to install the collection
-* Go to *Select > Collections* to view the installed collection
+* Install the collection: *Tools > Collections > Add*
+* Load the collection: *Select > Collection*
 
 $blocks
 $examples
