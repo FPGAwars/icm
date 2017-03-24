@@ -1,7 +1,7 @@
 # $name Collection
 
 [![Icestudio](https://img.shields.io/badge/collection-icestudio-blue.svg)](https://github.com/FPGAwars/icestudio)
-[![Version](https://img.shields.io/badge/version-v$version-orange.svg)]()
+![Version](https://img.shields.io/badge/version-v$version-orange.svg)
 
 $description.
 
