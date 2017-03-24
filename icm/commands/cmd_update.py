@@ -170,6 +170,7 @@ def list_recursive_files(path, ext='.ice'):
 
 
 def item_list(text, index=0):
+    text = re.sub(r'\.', '\.', text)
     return index * '  ' + '* ' + text + '\n'
 
 
