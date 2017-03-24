@@ -140,7 +140,7 @@ def getdocs():
             # Substitute the template
             data = template.safe_substitute(
                 name=package['name'],
-                version=package['version'],
+                version=package['version'].replace('-', '--'),
                 description=package['description'],
                 license=package.get('license'),
                 link=link,
