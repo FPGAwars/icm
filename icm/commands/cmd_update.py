@@ -162,7 +162,7 @@ def list_recursive_files(path, ext='.ice'):
         if init:
             init = False
         else:
-            data += item_list(os.path.basename(root), n-2)
+            data += item_list('*' + os.path.basename(root) + '*', n-2)
         for f in sorted(files):
             if f.endswith(ext):
                 data += item_list(os.path.splitext(f)[0], n-1)
