@@ -32,7 +32,10 @@ def update():
 
 def update_file(dest, data):
     if sys.version_info < (3, 0):
-        data = data.encode('utf-8')
+        try:
+            data = data.encode('utf-8')
+        except Exception:
+            pass
     if os.path.exists(dest):
         with open(dest, 'r') as f:
             if f.read() == data:
