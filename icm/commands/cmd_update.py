@@ -197,7 +197,7 @@ def list_languages(path):
 
 
 PATTERN_DESC = '"description":\s*"(.*?)"'
-PATTERN_INFO = '"info":\s*"(.*?)"'
+PATTERN_INFO = '"info":\s*"(.*?)",[\n|\s]*"readonly": true'
 
 
 def gettext():
