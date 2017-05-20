@@ -20,6 +20,16 @@ pip install icm
 | [update](https://github.com/FPGAwars/icm/wiki#icm-update) | Update docs and translation. |
 | [validate](https://github.com/FPGAwars/icm/wiki#icm-validate) | Validate a collection. |
 
+### Testing
+
+```bash
+pip install tox
+```
+
+```bash
+tox
+```
+
 ## Authors
 
 * [Jesús Arroyo Torrens](https://github.com/Jesus89)
