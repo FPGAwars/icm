@@ -42,43 +42,36 @@ def validate_collection():
         valid &= False
         click.secho(' - Error: no file `package.json` found', fg='yellow')
     else:
-        try:
-            with open('package.json', 'r') as data:
-                package = json.load(data)
-                keys = package.keys()
-                if not ('name' in keys and package['name']):
-                    valid &= False
-                    click.secho(
-                        ' - Error: not valid name in `package.json`',
-                        fg='yellow')
+        valid = _validate_package_file(valid)
 
-                if not ('version' in keys and
-                   semantic_version.validate(package['version'])):
-                    valid &= False
-                    click.secho(
-                        ' - Error: not valid version in `package.json`',
-                        fg='yellow')
+    return valid
 
-                if not ('description' in keys and package['description']):
-                    valid &= False
-                    click.secho(
-                        ' - Error: not valid description in `package.json`',
-                        fg='yellow')
 
-                if not ('keywords' in keys):
-                    valid &= False
-                    click.secho(
-                        ' - Error: not valid keywords in `package.json`',
-                        fg='yellow')
+def _validate_package_file(valid):
+    try:
+        with open('package.json', 'r') as data:
+            package = json.load(data)
+            keys = package.keys()
+            valid = _check_key('name', keys, valid,
+                               lambda x: package[x])
+            valid = _check_key('description', keys, valid,
+                               lambda x: package[x])
+            valid = _check_key('version', keys, valid,
+                               lambda x: semantic_version.validate(package[x]))
+            valid = _check_key('keywords', keys, valid)
+            valid = _check_key('license', keys, valid)
 
-                if not ('license' in keys):
-                    valid &= False
-                    click.secho(
-                        ' - Error: not valid license in `package.json`',
-                        fg='yellow')
+    except Exception as e:
+        valid &= False
+        click.secho(str(e), fg='red')
 
-        except Exception as e:
-            valid &= False
-            click.secho(str(e), fg='red')
+    return valid
 
+
+def _check_key(key, keys, valid, extra_check=lambda x: x):
+    if not (key in keys and extra_check(key)):
+        valid &= False
+        click.secho(
+            ' - Error: not valid {} in `package.json`'.format(key),
+            fg='yellow')
     return valid

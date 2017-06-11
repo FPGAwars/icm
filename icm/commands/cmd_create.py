@@ -25,20 +25,20 @@ def create():
     click.secho('Create a collection structure', fg='cyan')
 
     # Create blocks directory
-    create_directory('blocks')
+    _create_directory('blocks')
 
     # Create examples directory
-    create_directory('examples')
+    _create_directory('examples')
 
     # Create locale directory
-    create_directory('locale')
+    _create_directory('locale')
 
     # Create LICENSE file
     local_license = os.path.join(
         os.path.dirname(__file__), '..', 'resources', 'GPL-2.0')
     with open(local_license, 'r') as f:
         license = f.read()
-        create_file('LICENSE', license)
+        _create_file('LICENSE', license)
 
     # Create package.json file
     package = ''
@@ -55,15 +55,15 @@ def create():
             keywords='awesome,template',
             license='GPL-2.0')
 
-    create_file('package.json', package)
+    _create_file('package.json', package)
 
     # Create README.md file
-    create_file(
+    _create_file(
         'README.md',
         '## MyCollection\nUpdate this file using `icm update`')
 
 
-def create_directory(name):
+def _create_directory(name):
     if not os.path.exists(name):
         os.makedirs(name)
         click.secho(' - `{}` directory created'.format(name),
@@ -73,7 +73,7 @@ def create_directory(name):
                     fg='yellow')
 
 
-def create_file(name, content):
+def _create_file(name, content):
     if not os.path.exists(name):
         with open(name, 'w') as f:
             f.write(content)
