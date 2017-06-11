@@ -62,6 +62,9 @@ def create():
         'README.md',
         '## MyCollection\nUpdate this file using `icm update`')
 
+    # Create .gitignore file
+    _create_file('.gitignore', '*.mo')
+
 
 def _create_directory(name):
     if not os.path.exists(name):
