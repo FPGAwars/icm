@@ -33,9 +33,13 @@ def create():
     # Create locale directory
     _create_directory('locale')
 
+    # Create locale/en directory
+    _create_directory('locale/en')
+
     # Create LICENSE file
     local_license = os.path.join(
         os.path.dirname(__file__), '..', 'resources', 'GPL-2.0')
+
     with open(local_license, 'r') as f:
         license = f.read()
         _create_file('LICENSE', license)
@@ -61,6 +65,14 @@ def create():
     _create_file(
         'README.md',
         '## MyCollection\nUpdate this file using `icm update`')
+
+    # Create locale/en/en.po file
+    local_po_file = os.path.join(
+        os.path.dirname(__file__), '..', 'resources', 'en.po')
+
+    with open(local_po_file, 'r') as f:
+        po_file = f.read()
+        _create_file('locale/en/en.po', po_file)
 
     # Create .gitignore file
     _create_file('.gitignore', '*.mo')
