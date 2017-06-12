@@ -9,6 +9,8 @@
 # - blocks
 # - examples
 # - locale
+# - locale/en/en.po
+# - locale/translation.js
 # - LICENSE
 # - package.json
 # - README.md

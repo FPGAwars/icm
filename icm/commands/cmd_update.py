@@ -164,18 +164,15 @@ def _list_languages(path):
         if os.path.isfile(langpath):
             po = polib.pofile(langpath)
             if len(po.translated_entries()) > 0:
-                languages.append({
-                    'lang': lang,
-                    'progress': po.percent_translated()
-                })
+                languages.append((lang, po.percent_translated()))
     languages = sorted(languages)
     if languages:
         data = '| Language | Translated strings |\n'
         data += '|:--------:|:------------------:|\n'
         for language in languages:
-            data += '| ' + language['lang'] + ' | '
+            data += '| ' + language[0] + ' | '
             data += '![Progress](http://progressed.io/bar/'
-            data += str(language['progress']) + ') |\n'
+            data += str(language[1]) + ') |\n'
     return data
 
 
