@@ -45,17 +45,17 @@ def _update_file(dest, data):
 def _update_existing_file(dest, data):
     with open(dest, 'r') as f:
         if f.read() == data:
-            click.secho('`{}` file already updated'.format(dest),
+            click.secho(' - `{}` file already updated'.format(dest),
                         fg='yellow')
         else:
             if click.confirm('The `{}` file has changes.\n'
                              'Do you want to replace it?'.format(dest)):
                 with open(dest, 'w', ) as f:
                     f.write(data)
-                click.secho('`{}` updated'.format(dest),
+                click.secho(' - `{}` file updated'.format(dest),
                             fg='green')
             else:
-                click.secho('`{}` not updated'.format(dest),
+                click.secho(' - `{}` file not updated'.format(dest),
                             fg='red')
 
 
@@ -65,7 +65,7 @@ def _create_new_file(dest, data):
         os.mkdir(path)
     with open(dest, 'w', ) as f:
         f.write(data)
-    click.secho('`{}` created'.format(dest),
+    click.secho(' - `{}` file created'.format(dest),
                 fg='green')
 
 
@@ -163,10 +163,11 @@ def _list_languages(path):
         langpath = os.path.join(path, lang, lang + '.po')
         if os.path.isfile(langpath):
             po = polib.pofile(langpath)
-            languages.append({
-                'lang': lang,
-                'progress': po.percent_translated()
-            })
+            if len(po.translated_entries()) > 0:
+                languages.append({
+                    'lang': lang,
+                    'progress': po.percent_translated()
+                })
     languages = sorted(languages)
     if languages:
         data = '| Language | Translated strings |\n'
@@ -181,7 +182,8 @@ def _list_languages(path):
 def _create_authors_section(package):
     authors_section = ''
     authors = package.get('authors')
-    if authors and type(authors) is list:
+    default_authors = [{"name": "", "email": "", "url": ""}]
+    if authors and type(authors) is list and authors != default_authors:
         authors_section = '## Authors\n'
         for author in authors:
             name = author.get('name')

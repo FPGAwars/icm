@@ -22,12 +22,12 @@ def create():
 
 
 @cli.command()
-def validate():
-    """Validate a collection."""
-    cmd_validate.validate()
-
-
-@cli.command()
 def update():
     """Update docs and translation."""
     cmd_update.update()
+
+
+@cli.command()
+def validate():
+    """Validate a collection."""
+    cmd_validate.validate()
