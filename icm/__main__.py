@@ -1,3 +1,4 @@
+"""Icestudio Collection Manager"""
 # -*- coding: utf-8 -*-
 # -- This file is part of the Icestudio project
 # -- (C) 2017 FPGAwars
