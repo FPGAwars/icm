@@ -190,7 +190,7 @@ def _create_authors_section(package):
     authors_section = ""
     authors = package.get("authors")
     default_authors = [{"name": "", "email": "", "url": ""}]
-    if authors and isinstance(authors) is list and authors != default_authors:
+    if authors and isinstance(authors, list) and authors != default_authors:
         authors_section = "## Authors\n"
         for author in authors:
             name = author.get("name")
@@ -209,7 +209,7 @@ def _create_authors_section(package):
 def _create_contributor_section(package):
     contributors_section = ""
     contributors = package.get("contributors")
-    if contributors and isinstance(contributors) is list:
+    if contributors and isinstance(contributors, list):
         contributors_section = "## Contributors\n"
         for contributor in contributors:
             name = contributor.get("name")
