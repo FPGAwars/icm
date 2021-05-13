@@ -21,8 +21,6 @@ from string import Template
 import click
 
 
-
-
 def create():
     """Create a collection structure."""
 

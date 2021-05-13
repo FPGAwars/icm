@@ -15,7 +15,6 @@ import click
 import polib
 
 
-
 from icm.commands.cmd_validate import validate_collection
 
 

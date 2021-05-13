@@ -57,9 +57,7 @@ def _validate_package_file(valid):
             valid = _check_key("description", keys, valid,
                                lambda x: package[x])
             valid = _check_key(
-                "version",
-                keys,
-                valid,
+                "version", keys, valid,
                 lambda x: semantic_version.validate(package[x])
             )
             valid = _check_key("keywords", keys, valid)
