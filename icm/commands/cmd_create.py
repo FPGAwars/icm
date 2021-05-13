@@ -39,16 +39,18 @@ def create():
     _create_directory("locale/en")
 
     # Create locale/en/en.po file
-    local_po_file = os.path.join(os.path.dirname(__file__), "..",
-                                 "resources", "en.po")
+    local_po_file = os.path.join(
+        os.path.dirname(__file__), "..", "resources", "en.po"
+    )
 
     with open(local_po_file, "r") as file:
         po_file = file.read()
         _create_file("locale/en/en.po", po_file)
 
     # Create locale/translation.js file
-    _create_file("locale/translation.js",
-                 "// Update this file using `icm update`")
+    _create_file(
+        "locale/translation.js", "// Update this file using `icm update`"
+    )
 
     # Create LICENSE file
     local_license = os.path.join(
@@ -79,8 +81,9 @@ def create():
     _create_file("package.json", package)
 
     # Create README.md file
-    _create_file("README.md",
-                 "## MyCollection\nUpdate this file using `icm update`")
+    _create_file(
+        "README.md", "## MyCollection\nUpdate this file using `icm update`"
+    )
 
     # Create .gitignore file
     _create_file(".gitignore", "*.mo")
@@ -91,8 +94,9 @@ def _create_directory(name):
         os.makedirs(name)
         click.secho(" - `{}` directory created".format(name), fg="green")
     else:
-        click.secho(" - `{}` directory already exists".format(name),
-                    fg="yellow")
+        click.secho(
+            " - `{}` directory already exists".format(name), fg="yellow"
+        )
 
 
 def _create_file(name, content):

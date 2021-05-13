@@ -47,12 +47,13 @@ def _update_file(dest, data):
 def _update_existing_file(dest, data):
     with open(dest, "r") as file:
         if file.read() == data:
-            click.secho(" - `{}` file already updated".format(dest),
-                        fg="yellow")
+            click.secho(
+                " - `{}` file already updated".format(dest), fg="yellow"
+            )
         else:
             if click.confirm(
-                "The `{}` file has changes.\n" "Do you want to replace it?"
-                .format(dest)
+                "The `{}` file has changes.\n"
+                "Do you want to replace it?".format(dest)
             ):
                 with open(
                     dest,
