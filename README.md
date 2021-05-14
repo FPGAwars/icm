@@ -29,6 +29,15 @@ pip install tox
 tox
 ```
 
+## Development
+
+### Installing the development version on Ubuntu
+
+```
+sudo pip3 install -U git+https://github.com/FPGAwars/icm.git
+```
+
+
 ## Authors
 
 * [Jesús Arroyo Torrens](https://github.com/Jesus89)
