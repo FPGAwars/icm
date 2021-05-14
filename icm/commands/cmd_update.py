@@ -205,8 +205,7 @@ def _list_languages(path):
         data += "|:--------:|:------------------:|\n"
         for language in languages:
             data += "| " + language[0] + " | "
-            data += "![Progress](http://progressed.io/bar/"
-            data += str(language[1]) + ") |\n"
+            data += str(language[1]) + "% |\n"
     return data
 
 
