@@ -1,7 +1,7 @@
 # $name Collection
 
-[![Icestudio](https://img.shields.io/badge/collection-icestudio-blue.svg)](https://github.com/FPGAwars/icestudio)
-![Version](https://img.shields.io/badge/version-v$version-orange.svg)
+[![Icestudio][icestudio-image]][icestudio-url]
+![Version][version-image]
 
 $description.
 
@@ -19,3 +19,8 @@ $contributors
 ## License
 
 Licensed under [$license](https://opensource.org/licenses/$license).
+
+<!-- Badges -->
+[icestudio-image]: https://img.shields.io/badge/collection-icestudio-blue.svg
+[icestudio-url]: https://github.com/FPGAwars/icestudio
+[version-image]: https://img.shields.io/badge/version-v$version-orange.svg

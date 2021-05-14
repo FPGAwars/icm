@@ -7,7 +7,6 @@
 
 import os
 import re
-import sys
 import json
 
 from string import Template
@@ -17,6 +16,10 @@ import polib
 
 from icm.commands.cmd_validate import validate_collection
 
+# -- Repo default branch. This value is used when the package.json
+# -- has not the "branch" field in it
+DEFAULT_BRANCH = "main"
+
 
 def update():
     """Update docs and translation."""
@@ -24,8 +27,13 @@ def update():
     click.secho("Update the collection", fg="cyan")
 
     if validate_collection():
-        # Update README.md
-        _update_file("README.md", _getdocs())
+
+        # Read The contents from the package.json file
+        contents = _generate_readme_string()
+
+        # Update README.md (or create a new one)
+        _update_file("README.md", contents)
+
         # Update locale/translation.js
         _update_file("locale/translation.js", _gettext())
     else:
@@ -33,14 +41,17 @@ def update():
 
 
 def _update_file(dest, data):
-    if sys.version_info < (3, 0):
-        try:
-            data = data.encode("utf-8")
-        except Exception:
-            pass
+    """Update the destination file with the data.
+    If the file does not exists is its created"""
+
+    # Check if the file exist
     if os.path.exists(dest):
+
+        # Update it!
         _update_existing_file(dest, data)
     else:
+
+        # Create a new one
         _create_new_file(dest, data)
 
 
@@ -77,7 +88,12 @@ def _create_new_file(dest, data):
     click.secho(" - `{}` file created".format(dest), fg="green")
 
 
-def _getdocs():
+def _generate_readme_string():
+    """Generate the data for the README file from the TEMPLATE file
+    The information is read from the package.json file
+    It returns a string with the final readme file.
+    TEMPLATE file: resources/README.tpl.md"""
+
     data = ""
     readme_template = os.path.join(
         os.path.dirname(__file__), "..", "resources", "README.tpl.md"
@@ -107,13 +123,21 @@ def _getdocs():
 
 
 def _create_links(package):
+    """README: creates string with the Stable and development URLs
+    The data is got from the package structure (form the package.json)
+    """
+
     links = ""
+
+    # It is only done if there is a field `repository` with a fiel "url" inside
     if package.get("repository") and package["repository"].get("url"):
         url = package["repository"]["url"]
-        branch = package["repository"].get("branch", "master")
+        branch = package["repository"].get("branch", DEFAULT_BRANCH)
         version = package["version"]
-        stable = "[stable](" + url + "/archive/v" + version + ".zip)"
-        dev = "[development](" + url + "/archive/" + branch + ".zip)"
+        stable = "[stable](" + url + "/archive/refs/tags/v" + \
+                 version + ".zip)"
+        dev = "[development](" + url + "/archive/refs/heads/" + \
+              branch + ".zip)"
         links = ": " + stable + " or " + dev
     return links
 

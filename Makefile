@@ -20,3 +20,7 @@ tox:   ## Run tox
 
 publish:  ## Publish to PyPi
 	python -m flit publish
+
+install:  ## Install the tool locally
+	flit build
+	flit install
