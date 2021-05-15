@@ -22,16 +22,17 @@ DEFAULT_BRANCH = "main"
 
 
 def update():
-    """Update docs and translation."""
+    """ENTRY POINT: Update docs and translation."""
 
     click.secho("Update the collection", fg="cyan")
 
     if validate_collection():
 
         # Read The contents from the package.json file
+        # and generate a formated string
         contents = _generate_readme_string()
 
-        # Update README.md (or create a new one)
+        # Update README.md (or create a new one if it does not exist)
         _update_file("README.md", contents)
 
         # Update locale/translation.js
@@ -42,7 +43,7 @@ def update():
 
 def _update_file(dest, data):
     """Update the destination file with the data.
-    If the file does not exists is its created"""
+    If the file does not exists it is created"""
 
     # Check if the file exist
     if os.path.exists(dest):
@@ -56,20 +57,23 @@ def _update_file(dest, data):
 
 
 def _update_existing_file(dest, data):
+    """Update the dest file with the given data"""
+
     with open(dest, "r") as file:
+
+        # Read the current data from the fiel and check
+        # if it is equal or not to the given data
         if file.read() == data:
             click.secho(
                 " - `{}` file already updated".format(dest), fg="yellow"
             )
+        # -- The file is outdated
         else:
             if click.confirm(
                 "The `{}` file has changes.\n"
                 "Do you want to replace it?".format(dest)
             ):
-                with open(
-                    dest,
-                    "w",
-                ) as file:
+                with open(dest,"w") as file:
                     file.write(data)
                 click.secho(" - `{}` file updated".format(dest), fg="green")
             else:
@@ -103,17 +107,28 @@ def _generate_readme_string():
         package = json.load(pack)
 
         with open(readme_template, "r") as file:
+
+            # Read the template content
             template = Template(file.read())
 
-            # Substitute the template
+            # Substitute the template variables with the data generated
+            # from the package.json information
             data = template.safe_substitute(
                 name=package["name"],
                 version=package["version"].replace("-", "--"),
                 description=package["description"],
                 license=package.get("license"),
+
+                # -- Create the download link section
                 links=_create_links(package),
+
+                # -- Show all the blocks in the collection
                 blocks=_create_blocks_section(),
+
+                # -- Show all the examples in the collection
                 examples=_create_examples_section(),
+
+                # -- others
                 languages=_create_languages_section(),
                 authors=_create_authors_section(package),
                 contributors=_create_contributor_section(package),
@@ -152,33 +167,62 @@ def _create_blocks_section():
 
 
 def _create_examples_section():
+    """Read the examples directoy of the collection and create
+       the markdown documentation"""
+
     examples_section = ""
+
+    # Get all the files in the examples directory (recursivelly)
     examples = _list_recursive_files("examples")
+
+    # If there are no examples, this section is
+    # not added to the README file
     if examples:
         examples_section = "## Examples\n"
         examples_section += examples
+
     return examples_section
 
 
 def _list_recursive_files(path, ext=".ice"):
+    """Get a string with all the icestudio example files in the
+       given folder (recursivelly)"""
+
     data = ""
-    init = True
     for root, dirs, files in sorted(os.walk(path)):
+        
+        # -- root contains the path to the current file
+        # -- It is split into its components to determine its depth
         path = root.split(os.sep)
-        length = len(path)
-        if init:
-            init = False
-        else:
-            data += _item_list("*" + os.path.basename(root) + "*", length - 2)
+        depth = len(path)
+
+        # -- Insert only the elements with depth > 1
+        # -- A depth = 1 means the block or example folder
+        if depth > 1:
+
+            # -- Indentation spaces (depending on the depth)
+            indent = "  " * (depth-2)
+
+            # -- Item name in italic (markdown)
+            item_name = f"* *{os.path.basename(root)}*\n"
+
+            data += indent + item_name
+
+            print(f"->DEGUG: {indent}{item_name}")
+
         for file in sorted(files):
+            print(f"->File: {file}")
             if file.endswith(ext):
-                data += _item_list(os.path.splitext(file)[0], length - 1)
+                indent= "  " * (depth-1) 
+                example_name = f"* {os.path.splitext(file)[0]}\n"
+                data += indent + example_name
+                print(f"->DEGUG: {indent}{example_name}")
+                
     return data
 
 
-def _item_list(text, index=0):
-    text = re.sub(r"\.", r"\.", text)
-    return index * "  " + "* " + text + "\n"
+def _item_list(text, depth=0):
+    return "  " * depth + "* " + text + "\n"
 
 
 def _create_languages_section():
