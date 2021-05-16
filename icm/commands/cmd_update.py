@@ -212,7 +212,7 @@ def _list_recursive_files(path, ext=".ice"):
                 data += indent + folder_name + '\n'
 
                 # -- Debug!
-                print(f"{indent}{folder_name}")
+                # print(f"{indent}{folder_name}")
 
             
 
@@ -233,7 +233,7 @@ def _list_recursive_files(path, ext=".ice"):
                     data += indent + example_name + '\n'
 
                     # -- Debug!
-                    print(f"{indent}{example_name}.ice")
+                    # print(f"{indent}{example_name}.ice")
                 
     return data
 

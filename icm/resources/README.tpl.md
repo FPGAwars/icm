@@ -7,9 +7,11 @@ $description.
 
 ## Install
 
+For installing and using this colection in Icestudio follow these steps:
+
 * Download the collection$links
 * Install the collection: *Tools > Collections > Add*
-* Load the collection: *Select > Collection*
+* Select the collection: *Select > Collection*
 
 $blocks
 $examples
