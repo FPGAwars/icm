@@ -203,8 +203,8 @@ def _list_recursive_files(path, ext=".ice"):
             # -- Indentation spaces (depending on the depth)
             indent = "  " * (depth-2)
 
-            # -- Item name in italic (markdown)
-            folder_name = f"* *{os.path.basename(root)}*"
+            # -- Item name in bold (markdown)
+            folder_name = f"* **{os.path.basename(root)}**"
 
             # -- Include the folder in the string
             # -- Ignore the ice-build folder!
