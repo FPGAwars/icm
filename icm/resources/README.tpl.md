@@ -3,7 +3,9 @@
 [![Icestudio][icestudio-image]][icestudio-url]
 ![Version][version-image]
 
-$description.
+$logo
+$description
+$wiki
 
 ## Install
 

@@ -73,7 +73,7 @@ def _update_existing_file(dest, data):
                 "The `{}` file has changes.\n"
                 "Do you want to replace it?".format(dest)
             ):
-                with open(dest,"w") as file:
+                with open(dest, "w") as file:
                     file.write(data)
                 click.secho(" - `{}` file updated".format(dest), fg="green")
             else:
@@ -118,21 +118,49 @@ def _generate_readme_string():
                 version=package["version"].replace("-", "--"),
                 description=package["description"],
                 license=package.get("license"),
-
+                # -- Add the logo image
+                logo=_create_logo(package),
+                # -- Add the wiki section
+                wiki=_create_wiki(package),
                 # -- Create the download link section
                 links=_create_links(package),
-
                 # -- Show all the blocks in the collection
                 blocks=_create_blocks_section(),
-
                 # -- Show all the examples in the collection
                 examples=_create_examples_section(),
-
                 # -- others
                 languages=_create_languages_section(),
                 authors=_create_authors_section(package),
                 contributors=_create_contributor_section(package),
             )
+
+    return data
+
+
+def _create_wiki(package):
+    """README: create the wiki section"""
+
+    data = ""
+
+    # -- Get the wiki URL
+    if package.get("wiki"):
+        url = package["wiki"]
+        data += "## Documentation\n"
+        data += "Find more information in the "
+        data += f"[WIKI page]({url})  \n"
+
+    return data
+
+
+def _create_logo(package):
+    """README: create the markdown string with the logo"""
+
+    data = ""
+
+    # -- Get the logo
+    if package.get("logo"):
+        file = package["logo"]
+        data += f"![]({file})\n"
 
     return data
 
@@ -149,10 +177,10 @@ def _create_links(package):
         url = package["repository"]["url"]
         branch = package["repository"].get("branch", DEFAULT_BRANCH)
         version = package["version"]
-        stable = "[stable](" + url + "/archive/refs/tags/v" + \
-                 version + ".zip)"
-        dev = "[development](" + url + "/archive/refs/heads/" + \
-              branch + ".zip)"
+        stable = "[stable](" + url + "/archive/refs/tags/v" + version + ".zip)"
+        dev = (
+            "[development](" + url + "/archive/refs/heads/" + branch + ".zip)"
+        )
         links = ": " + stable + " or " + dev
     return links
 
@@ -168,7 +196,7 @@ def _create_blocks_section():
 
 def _create_examples_section():
     """Read the examples directoy of the collection and create
-       the markdown documentation"""
+    the markdown documentation"""
 
     examples_section = ""
 
@@ -186,11 +214,11 @@ def _create_examples_section():
 
 def _list_recursive_files(path, ext=".ice"):
     """Get a string with all the icestudio example files in the
-       given folder (recursivelly)"""
+    given folder (recursivelly)"""
 
     data = ""
     for root, dirs, files in sorted(os.walk(path)):
-        
+
         # -- root contains the path to the current file
         # -- It is split into its components to determine its depth
         path = root.split(os.sep)
@@ -201,40 +229,38 @@ def _list_recursive_files(path, ext=".ice"):
         if depth > 1:
 
             # -- Indentation spaces (depending on the depth)
-            indent = "  " * (depth-2)
+            indent = "  " * (depth - 2)
 
             # -- Item name in bold (markdown)
             folder_name = f"* **{os.path.basename(root)}**"
 
             # -- Include the folder in the string
             # -- Ignore the ice-build folder!
-            if 'ice-build' not in path:
-                data += indent + folder_name + '\n'
+            if "ice-build" not in path:
+                data += indent + folder_name + "\n"
 
                 # -- Debug!
                 # print(f"{indent}{folder_name}")
 
-            
-
         # -- Add the .ice files to the output string
         for file in sorted(files):
-            
+
             # -- Only '.ice' files are included
             if file.endswith(ext):
 
                 # -- Indentation
-                indent= "  " * (depth-1)
+                indent = "  " * (depth - 1)
 
-                # -- Get the file name 
+                # -- Get the file name
                 example_name = f"* {os.path.splitext(file)[0]}"
 
                 # -- The files inside an ice-build folder are ignored
-                if 'ice-build' not in path:
-                    data += indent + example_name + '\n'
+                if "ice-build" not in path:
+                    data += indent + example_name + "\n"
 
                     # -- Debug!
                     # print(f"{indent}{example_name}.ice")
-                
+
     return data
 
 
