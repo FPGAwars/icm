@@ -268,7 +268,7 @@ def _create_languages_section():
     languages_section = ""
     languages = _list_languages("locale")
     if languages:
-        languages_section = "## Languages\n"
+        languages_section = "## Translations\n"
         languages_section += languages
     return languages_section
 
