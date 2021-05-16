@@ -264,10 +264,6 @@ def _list_recursive_files(path, ext=".ice"):
     return data
 
 
-def _item_list(text, depth=0):
-    return "  " * depth + "* " + text + "\n"
-
-
 def _create_languages_section():
     languages_section = ""
     languages = _list_languages("locale")
@@ -364,14 +360,28 @@ def _find_texts(path, translations, ext=".ice"):
     """Find all texts for translation"""
     for root, dirs, files in sorted(os.walk(path)):
         for directory in sorted(dirs):
-            # Append directories
-            translations.append(directory)
+            # Append directories if diferent thant ice-build
+            if directory != "ice-build":
+                translations.append(directory)
+
+                # -- Debug
+                # -- print(f"{directory}")
+
         for file in sorted(files):
-            if file.endswith(ext):
-                # Append files
-                translations.append(os.path.splitext(file)[0])
-                filepath = os.path.join(root, file)
-                _find_texts_in_file(filepath, translations)
+
+            # Discard the files inside the ice-build folders
+            if root.find("ice-build") == -1:
+
+                # -- Only files with the given extension
+                if file.endswith(ext):
+
+                    # Append files
+                    translations.append(os.path.splitext(file)[0])
+                    filepath = os.path.join(root, file)
+                    _find_texts_in_file(filepath, translations)
+
+                    # Debug
+                    print(file)
 
 
 PATTERN_DESC = r'"description":\s*"(.*?)"'
