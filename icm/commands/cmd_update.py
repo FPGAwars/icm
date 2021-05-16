@@ -381,7 +381,7 @@ def _find_texts(path, translations, ext=".ice"):
                     _find_texts_in_file(filepath, translations)
 
                     # Debug
-                    print(file)
+                    # print(file)
 
 
 PATTERN_DESC = r'"description":\s*"(.*?)"'
