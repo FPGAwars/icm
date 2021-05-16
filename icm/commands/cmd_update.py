@@ -197,26 +197,43 @@ def _list_recursive_files(path, ext=".ice"):
         depth = len(path)
 
         # -- Insert only the elements with depth > 1
-        # -- A depth = 1 means the block or example folder
+        # -- A depth = 1 means the block or example root folder
         if depth > 1:
 
             # -- Indentation spaces (depending on the depth)
             indent = "  " * (depth-2)
 
             # -- Item name in italic (markdown)
-            item_name = f"* *{os.path.basename(root)}*\n"
+            folder_name = f"* *{os.path.basename(root)}*"
 
-            data += indent + item_name
+            # -- Include the folder in the string
+            # -- Ignore the ice-build folder!
+            if 'ice-build' not in path:
+                data += indent + folder_name + '\n'
 
-            print(f"->DEGUG: {indent}{item_name}")
+                # -- Debug!
+                print(f"{indent}{folder_name}")
 
+            
+
+        # -- Add the .ice files to the output string
         for file in sorted(files):
-            print(f"->File: {file}")
+            
+            # -- Only '.ice' files are included
             if file.endswith(ext):
-                indent= "  " * (depth-1) 
-                example_name = f"* {os.path.splitext(file)[0]}\n"
-                data += indent + example_name
-                print(f"->DEGUG: {indent}{example_name}")
+
+                # -- Indentation
+                indent= "  " * (depth-1)
+
+                # -- Get the file name 
+                example_name = f"* {os.path.splitext(file)[0]}"
+
+                # -- The files inside an ice-build folder are ignored
+                if 'ice-build' not in path:
+                    data += indent + example_name + '\n'
+
+                    # -- Debug!
+                    print(f"{indent}{example_name}.ice")
                 
     return data
 
