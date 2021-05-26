@@ -13,12 +13,42 @@ from string import Template
 import click
 import polib
 
-
 from icm.commands.cmd_validate import validate_collection
 
 # -- Repo default branch. This value is used when the package.json
 # -- has not the "branch" field in it
 DEFAULT_BRANCH = "main"
+
+# -- Folder name where the blocks are located in the collection
+BLOCKS_FOLDER = "blocks"
+
+# -- Folder name where the examples are located in the collection
+EXAMPLES_FOLDER = "examples"
+
+# -- Folder name where the resources are located (templates, ...)
+RESOURCES_FOLDER = "resources"
+
+# -- Template for generating the translation.js file
+TRANSLATION_TEMPLATE_FILE = "translation.tpl.js"
+
+# -- Dictionary with the asociation between Lanaguje name and
+# -- its locale
+DICT_LANG = {
+    "es_ES": "Spanish",
+    "ca_ES": "Catalan",
+    "cs_CZ": "CZech",
+    "de_DE": "German",
+    "el_GR": "Greek",
+    "eu_ES": "Basque",
+    "fr_FR": "French",
+    "gl_ES": "Galician",
+    "it_IT": "Italian",
+    "ko_KR": "Korean",
+    "nl_NL": "Netherlands",
+    "ru_RU": "Russian",
+    "zh_CH": "Simplified Chinese",
+    "zh_TW": "Tradictional Chinese",
+}
 
 
 def update():
@@ -26,6 +56,7 @@ def update():
 
     click.secho("Update the collection", fg="cyan")
 
+    # The collection can only be updated if it is valid
     if validate_collection():
 
         # Read The contents from the package.json file
@@ -33,10 +64,16 @@ def update():
         contents = _generate_readme_string()
 
         # Update README.md (or create a new one if it does not exist)
+        # with the generated contents
         _update_file("README.md", contents)
 
-        # Update locale/translation.js
-        _update_file("locale/translation.js", _gettext())
+        # Read the English text to be translated
+        lang_contents = _generate_translation_strings()
+
+        # Update the locale/translation.js file with the new texts
+        # to be translated
+        _update_file("locale/translation.js", lang_contents)
+
     else:
         click.secho("\nThe collection is not valid :(", fg="red")
 
@@ -217,7 +254,7 @@ def _list_recursive_files(path, ext=".ice"):
     given folder (recursivelly)"""
 
     data = ""
-    for root, dirs, files in sorted(os.walk(path)):
+    for root, _, files in sorted(os.walk(path)):
 
         # -- root contains the path to the current file
         # -- It is split into its components to determine its depth
@@ -274,22 +311,58 @@ def _create_languages_section():
 
 
 def _list_languages(path):
+    """Get the string with all the translated languajes and its percentage"""
     data = ""
     languages = []
+
+    # Get the languages from the folders inside the LOCALE folder
     for lang in os.listdir(path):
+
+        # The the path to the .po file of the current language to process
         langpath = os.path.join(path, lang, lang + ".po")
+
+        # Process it, if it is a file
         if os.path.isfile(langpath):
+
+            # Read the .po file with the translated texts
             pofile = polib.pofile(langpath)
-            if len(pofile.translated_entries()) > 0:
+
+            # If the file is not null, there are some translated texts
+            # Processs it!
+            if len(pofile) != 0:
+
+                # Insert the languaje locale and its percentage in the list
                 languages.append((lang, pofile.percent_translated()))
+
+    # Short the languajes locales
     languages = sorted(languages)
+
+    # If there are any translations... Generate the information string
     if languages:
-        data = "| Language | Translated strings |\n"
-        data += "|:--------:|:------------------:|\n"
+
+        # Write the header
+        data = "| Language | Locale | Translated strings |\n"
+        data += "|----------|--------|--------------------|\n"
+        data += "| English  |  en    | ![](https://progress-bar.dev/100) |\n"
+
+        # Write the information for every translated languaje
         for language in languages:
-            data += "| " + language[0] + " | "
+
+            # write the Languaje Name. If it was not defined just use
+            # its locales
+            try:
+                lang_name = DICT_LANG[language[0]]
+            except KeyError:
+                lang_name = language[0]
+
+            # Generate the table entry for that languaje
+            # language[0] contains the locales
+            data += f"| {lang_name} | "
+            data += " " + language[0] + " | "
             data += "![](https://progress-bar.dev/" + str(language[1]) + ")"
             data += " |\n"
+
+    # Return the generated string
     return data
 
 
@@ -332,26 +405,37 @@ def _create_contributor_section(package):
     return contributors_section
 
 
-def _gettext():
+def _generate_translation_strings():
+    """Generate the string with the text in Egnlish to be translated"""
+
     data = ""
+
+    # -- Get the path for the resources/translation.tpl.js template file
     readme_template = os.path.join(
-        os.path.dirname(__file__), "..", "resources", "translation.tpl.js"
+        os.path.dirname(__file__),
+        "..",
+        RESOURCES_FOLDER,
+        TRANSLATION_TEMPLATE_FILE,
     )
 
+    # -- Process the template file
     with open(readme_template, "r") as file:
         translations = []
         template = Template(file.read())
 
-        # Read blocks
-        _find_texts("blocks", translations)
+        # Get the English texts for all the blocks in the collection
+        # Block are located in the "blocks" folder
+        _find_texts(BLOCKS_FOLDER, translations)
 
-        # Read examples
-        _find_texts("examples", translations)
+        # Get the English texts for all the examples in the collection
+        # The examples are located in the "examples" folder
+        _find_texts(EXAMPLES_FOLDER, translations)
 
-        # Add gettext function
+        # Add gettext function to all the English texts
+        # gettext('text in english');
         translations = ["gettext('" + t + "');" for t in translations]
 
-        # Substitute the template
+        # Substitute the template and return the string
         data = template.safe_substitute(translations="\n".join(translations))
     return data
 

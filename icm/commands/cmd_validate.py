@@ -68,10 +68,11 @@ def _validate_package_file(valid):
             valid = _check_key("license", keys, valid)
 
     except ValueError:
+        print("Error!: ValueError")
         raise
-    except Exception as exc:
-        valid &= False
-        click.secho(str(exc), fg="red")
+    # except Exception as exc:
+    #     valid &= False
+    #     click.secho(str(exc), fg="red")
 
     return valid
 
