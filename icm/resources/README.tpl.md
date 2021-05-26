@@ -7,6 +7,10 @@ $logo
 $description
 $wiki
 
+## License
+
+Licensed under [$license](https://opensource.org/licenses/$license).
+
 ## Install
 
 For installing and using this colection in Icestudio follow these steps:
@@ -15,14 +19,11 @@ For installing and using this colection in Icestudio follow these steps:
 * Install the collection: *Tools > Collections > Add*
 * Select the collection: *Select > Collection*
 
+$languages
 $blocks
 $examples
-$languages
 $authors
 $contributors
-## License
-
-Licensed under [$license](https://opensource.org/licenses/$license).
 
 <!-- Badges -->
 [icestudio-image]: https://img.shields.io/badge/collection-icestudio-blue.svg
