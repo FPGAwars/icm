@@ -1,4 +1,5 @@
 ![](https://github.com/FPGAwars/icm/raw/master/wiki/Logo/icm-github.svg)
+
 [![PyPI Version][pypi-image]][pypi-url]
 [![Build Status][build-image]][build-url]
 [![License][license-image]][license-url]
