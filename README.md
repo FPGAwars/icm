@@ -1,9 +1,16 @@
-# Icestudio collections manager
+![](https://github.com/FPGAwars/icm/raw/master/wiki/Logo/icm-github.svg)
 [![PyPI Version][pypi-image]][pypi-url]
 [![Build Status][build-image]][build-url]
 [![License][license-image]][license-url]
 
-Tools to manage [Icestudio](https://github.com/FPGAwars) collections.
+
+# Icestudio collection manager
+
+Tools to manage [Icestudio](https://github.com/FPGAwars) collections: template creation, translation update, automatic readme generation...
+
+## Documentation
+
+Find all the information on the [WIKI page](https://github.com/FPGAwars/icm/wiki)  
 
 ## Install
 
@@ -19,16 +26,6 @@ pip install icm
 | [update](https://github.com/FPGAwars/icm/wiki#icm-update) | Update docs and translation. |
 | [validate](https://github.com/FPGAwars/icm/wiki#icm-validate) | Validate a collection. |
 
-### Testing
-
-```bash
-pip install tox
-```
-
-```bash
-tox
-```
-
 ## Development
 
 ### Installing the development version on Ubuntu
@@ -42,9 +39,16 @@ sudo pip3 install -U git+https://github.com/FPGAwars/icm.git
 
 * [Jesús Arroyo Torrens](https://github.com/Jesus89)
 
+## Contributors
+
+* [Juan Gonzalez Gomez (Obijuan)](https://github.com/Obijuan)  
+
 ## License
 
 Licensed under [GPLv2](http://opensource.org/licenses/GPL-2.0).
+
+------
+![](https://github.com/FPGAwars/icestudio-wiki/raw/main/Logos/fgpawars-banner.svg)
 
 <!-- Badges -->
 [pypi-image]: https://img.shields.io/pypi/v/icm
