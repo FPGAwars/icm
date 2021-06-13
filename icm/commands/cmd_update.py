@@ -155,6 +155,8 @@ def _generate_readme_string():
                 version=package["version"].replace("-", "--"),
                 description=package["description"],
                 license=package.get("license"),
+                # -- Add the header image
+                header=_create_header(package),
                 # -- Add the logo image
                 logo=_create_logo(package),
                 # -- Add the wiki section
@@ -169,6 +171,8 @@ def _generate_readme_string():
                 languages=_create_languages_section(),
                 authors=_create_authors_section(package),
                 contributors=_create_contributor_section(package),
+                # -- Add the footer image
+                footer=_create_footer(package),
             )
 
     return data
@@ -183,8 +187,34 @@ def _create_wiki(package):
     if package.get("wiki"):
         url = package["wiki"]
         data += "## Documentation\n"
-        data += "Find more information in the "
+        data += "Find all the information on the "
         data += f"[WIKI page]({url})  \n"
+
+    return data
+
+
+def _create_header(package):
+    """README: create the markdown string with the header image"""
+
+    data = ""
+
+    # -- Get the header image
+    if package.get("header"):
+        file = package["header"]
+        data += f"![]({file})\n"
+
+    return data
+
+
+def _create_footer(package):
+    """README: create the markdown string with the footer image"""
+
+    data = ""
+
+    # -- Get the header image
+    if package.get("footer"):
+        file = package["footer"]
+        data += f"![]({file})\n"
 
     return data
 

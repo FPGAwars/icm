@@ -1,3 +1,5 @@
+$header
+
 # $name Collection
 
 [![Icestudio][icestudio-image]][icestudio-url]
@@ -24,6 +26,9 @@ $blocks
 $examples
 $authors
 $contributors
+
+-------
+$footer
 
 <!-- Badges -->
 [icestudio-image]: https://img.shields.io/badge/collection-icestudio-blue.svg
