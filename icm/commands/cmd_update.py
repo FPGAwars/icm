@@ -201,7 +201,20 @@ def _create_header(package):
     # -- Get the header image
     if package.get("header"):
         file = package["header"]
-        data += f"![]({file})\n"
+
+        # -- If there is a wiki page defined, the heather images is linked
+        # -- to the wiki
+        if package.get("wiki"):
+
+            # -- Get the wiki URL
+            url = package["wiki"]
+
+            # --- Add the image + link
+            data += f"[![]({file})]({url})\n"
+
+        # -- No wiki: Just place the heather image
+        else:
+            data += f"![]({file})\n"
 
     return data
 
