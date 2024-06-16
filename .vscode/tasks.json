@@ -49,6 +49,22 @@
             "problemMatcher": []
         },
         {
+            "label": "Test",
+            "detail": "pytest test",
+            "type": "shell",
+            "command": "${command:python.interpreterPath}",
+            "args": ["-m", "pytest", "test"],
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared",
+                "showReuseMessage": false,
+                "clear": true, 
+            },
+            "problemMatcher": []
+        },
+        {
             "label": "Tox",
             "type": "shell",
             "command": "${command:python.interpreterPath}",
