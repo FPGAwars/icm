@@ -2,7 +2,7 @@
 
 deps:  ## Install dependencies
 	python -m pip install --upgrade pip
-	python -m pip install black flake8 flit pylint pytest tox tox-gh-actions semantic_version polib
+	python -m pip install black flake8 flit pylint pytest tox tox-gh-actions semantic_version polib tqdm
 
 cenv:  ## Create the virtual-environment
 	python3 -m venv env
