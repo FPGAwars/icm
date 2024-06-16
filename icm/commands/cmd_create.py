@@ -1,4 +1,5 @@
 """Docstring"""
+
 # -*- coding: utf-8 -*-
 # -- This file is part of the Icestudio project
 # -- (C) 2017 FPGAwars
@@ -43,7 +44,7 @@ def create():
         os.path.dirname(__file__), "..", "resources", "en.po"
     )
 
-    with open(local_po_file, "r") as file:
+    with open(local_po_file, "r", encoding="utf-8") as file:
         po_file = file.read()
         _create_file("locale/en/en.po", po_file)
 
@@ -57,7 +58,7 @@ def create():
         os.path.dirname(__file__), "..", "resources", "GPL-2.0"
     )
 
-    with open(local_license, "r") as file:
+    with open(local_license, "r", encoding="utf-8") as file:
         _license = file.read()
         _create_file("LICENSE", _license)
 
@@ -67,7 +68,7 @@ def create():
         os.path.dirname(__file__), "..", "resources", "package.tpl.json"
     )
 
-    with open(package_template, "r") as file:
+    with open(package_template, "r", encoding="utf-8") as file:
         template = Template(file.read())
 
         package = template.safe_substitute(
@@ -92,17 +93,15 @@ def create():
 def _create_directory(name):
     if not os.path.exists(name):
         os.makedirs(name)
-        click.secho(" - `{}` directory created".format(name), fg="green")
+        click.secho(f" - `{name}` directory created", fg="green")
     else:
-        click.secho(
-            " - `{}` directory already exists".format(name), fg="yellow"
-        )
+        click.secho(f" - `{name}` directory already exists", fg="yellow")
 
 
 def _create_file(name, content):
     if not os.path.exists(name):
-        with open(name, "w") as file:
+        with open(name, "w", encoding="utf-8") as file:
             file.write(content)
-            click.secho(" - `{}` file created".format(name), fg="green")
+            click.secho(f" - `{name}` file created", fg="green")
     else:
-        click.secho(" - `{}` file already exists".format(name), fg="yellow")
+        click.secho(" - `{name}` file already exists", fg="yellow")

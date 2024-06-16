@@ -1,0 +1,36 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Lint",
+            "detail": "pylint icm",
+            "type": "shell",
+            "command": "${command:python.interpreterPath}",
+            "args": ["-m", "pylint", "icm"],
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared",
+                "showReuseMessage": false,
+                "clear": true, 
+            },
+
+            "problemMatcher": {
+		        "owner": "python",
+		        "fileLocation": [
+			        "relative",
+			        "${workspaceFolder}"
+		        ],
+		        "pattern": {
+			        "regexp": "^(.*):(\\d+):(\\d+):\\s+(W|E|C).+:\\s+(.*)$",
+			        "file": 1,
+			        "line": 2,
+			        "column": 3,
+			        "severity": 4,
+			        "message": 5
+		        }
+	        }
+        }
+    ]
+}

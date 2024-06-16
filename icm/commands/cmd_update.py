@@ -1,4 +1,5 @@
 """Update command"""
+
 # -*- coding: utf-8 -*-
 # -- This file is part of the Icestudio project
 # -- (C) 2017 FPGAwars
@@ -96,37 +97,32 @@ def _update_file(dest, data):
 def _update_existing_file(dest, data):
     """Update the dest file with the given data"""
 
-    with open(dest, "r") as file:
+    with open(dest, "r", encoding="utf-8") as file:
 
         # Read the current data from the fiel and check
         # if it is equal or not to the given data
         if file.read() == data:
-            click.secho(
-                " - `{}` file already updated".format(dest), fg="yellow"
-            )
+            click.secho(f" - `{dest}` file already updated", fg="yellow")
         # -- The file is outdated
         else:
             if click.confirm(
-                "The `{}` file has changes.\n"
-                "Do you want to replace it?".format(dest)
+                f"The `{dest}` file has changes.\n"
+                "Do you want to replace it?"
             ):
-                with open(dest, "w") as file:
+                with open(dest, "w", encoding="utf-8") as file:
                     file.write(data)
-                click.secho(" - `{}` file updated".format(dest), fg="green")
+                click.secho(f" - `{dest}` file updated", fg="green")
             else:
-                click.secho(" - `{}` file not updated".format(dest), fg="red")
+                click.secho(f" - `{dest}` file not updated", fg="red")
 
 
 def _create_new_file(dest, data):
     path = os.path.dirname(dest)
     if path and not os.path.exists(path):
         os.mkdir(path)
-    with open(
-        dest,
-        "w",
-    ) as file:
+    with open(dest, "w", encoding="utf-8") as file:
         file.write(data)
-    click.secho(" - `{}` file created".format(dest), fg="green")
+    click.secho(f" - `{dest}` file created", fg="green")
 
 
 def _generate_readme_string():
@@ -140,10 +136,10 @@ def _generate_readme_string():
         os.path.dirname(__file__), "..", "resources", "README.tpl.md"
     )
 
-    with open("package.json", "r") as pack:
+    with open("package.json", "r", encoding="utf-8") as pack:
         package = json.load(pack)
 
-        with open(readme_template, "r") as file:
+        with open(readme_template, "r", encoding="utf-8") as file:
 
             # Read the template content
             template = Template(file.read())
@@ -462,7 +458,7 @@ def _generate_translation_strings():
     )
 
     # -- Process the template file
-    with open(readme_template, "r") as file:
+    with open(readme_template, "r", encoding="utf-8") as file:
         translations = []
         template = Template(file.read())
 
@@ -516,7 +512,7 @@ PATTERN_INFO = r'"info":\s*"(.*?)",[\n|\s]*"readonly": true'
 
 
 def _find_texts_in_file(filepath, translations):
-    with open(filepath, "r") as path:
+    with open(filepath, "r", encoding="utf-8") as path:
         project = path.read()
         # Append descriptions
         path = re.compile(PATTERN_DESC)

@@ -1,4 +1,5 @@
 """Validate a collection"""
+
 # -*- coding: utf-8 -*-
 # -- This file is part of the Icestudio project
 # -- (C) 2017 FPGAwars
@@ -51,7 +52,7 @@ def validate_collection():
 
 def _validate_package_file(valid):
     try:
-        with open("package.json", "r") as data:
+        with open("package.json", "r", encoding="utf-8") as data:
             package = json.load(data)
             keys = package.keys()
             valid = _check_key("name", keys, valid, lambda x: package[x])
@@ -81,6 +82,6 @@ def _check_key(key, keys, valid, extra_check=lambda x: x):
     if not (key in keys and extra_check(key)):
         valid &= False
         click.secho(
-            " - Error: not valid {} in `package.json`".format(key), fg="yellow"
+            f" - Error: not valid {key} in `package.json`", fg="yellow"
         )
     return valid
