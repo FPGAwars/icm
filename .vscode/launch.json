@@ -17,7 +17,19 @@
             "args": ["update"],
             "console": "integratedTerminal",
             "justMyCode": true
-        }
+        },
+        {
+            "name": "ICM Info",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "icm-run.py",
+            "args": ["info"],
+            //"console": "internalConsole",
+            "console": "integratedTerminal",
+            "justMyCode": true,
+            "internalConsoleOptions": "neverOpen",
+            "preLaunchTask": "Clear terminal",
+        },
     ]
 }
 

@@ -17,6 +17,7 @@ try:
 
 #-- Apio commands finish with this excepcion
 except SystemExit:
+    print("")
     print("icm command executed!")
 
 #-- Exit!
