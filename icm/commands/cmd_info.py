@@ -54,6 +54,14 @@ class Folders(NamedTuple):
         """Return the icestudio collections folder"""
         return self.icestudio / "collections"
 
+    @staticmethod
+    def check(folder: Path) -> str:
+        """Return a check character depending if the folder exists
+        ✅ : Folder exists
+        ❌ : Folder does NOT exist
+        """
+        return "✅ " if folder.exists() else "❌ "
+
 
 # -- Information about collections
 icek = {"name": "iceK", "version": "0.1.4"}
@@ -95,27 +103,17 @@ def print_folders_info(ctx: Context, folders: Folders) -> None:
     click.secho("FOLDERS", fg="yellow")
     click.secho(ctx.line, fg="yellow")
 
-    # -- Check if all the folders exist or not
-    ok_home = folders.home.exists()
-    ok_icestudio = folders.icestudio.exists()
-    ok_collections = folders.collections.exists()
-
-    # -- Choose the correct bullet for the folder
-    home_check = "✅ " if ok_home else "❌ "
-    icestudio_check = "✅ " if ok_icestudio else "❌ "
-    collections_check = "✅ " if ok_collections else "❌ "
-
     # -- Print the information
     click.echo(
-        home_check + click.style("HOME: ", fg="yellow") + f"{folders.home}"
+        folders.check(folders.home) + click.style("HOME: ", fg="yellow") + f"{folders.home}"
     )
     click.echo(
-        icestudio_check
+        folders.check(folders.icestudio)
         + click.style("Icestudio: ", fg="yellow")
         + f"{folders.icestudio}"
     )
     click.echo(
-        collections_check
+        folders.check(folders.collections)
         + click.style("Collections: ", fg="yellow")
         + f"{folders.collections}"
     )
