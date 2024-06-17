@@ -14,7 +14,7 @@ classifiers=[
         'License :: OSI Approved :: GNU General Public License v2 (GPLv2)',
         'Programming Language :: Python']
 description-file = "README.md"
-requires-python = ">=3.7"
+requires-python = ">=3.9"
 
 [tool.flit.scripts]
 icm = "icm.__main__:cli"
