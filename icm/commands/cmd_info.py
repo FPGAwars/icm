@@ -105,7 +105,9 @@ def print_folders_info(ctx: Context, folders: Folders) -> None:
 
     # -- Print the information
     click.echo(
-        folders.check(folders.home) + click.style("HOME: ", fg="yellow") + f"{folders.home}"
+        folders.check(folders.home)
+        + click.style("HOME: ", fg="yellow")
+        + f"{folders.home}"
     )
     click.echo(
         folders.check(folders.icestudio)
