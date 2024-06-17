@@ -15,10 +15,10 @@ from icm.__main__ import cli as icm
 try:
     icm(None)
 
-#-- Apio commands finish with this excepcion
+#-- icm commands finish with this excepcion
 except SystemExit:
     print("")
-    print("icm command executed!")
+    print("icm-run done")
 
 #-- Exit!
 sys.exit()
