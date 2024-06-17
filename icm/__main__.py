@@ -8,7 +8,13 @@
 
 import click
 
-from icm.commands import cmd_create, cmd_validate, cmd_update, cmd_info
+from icm.commands import (
+    cmd_create,
+    cmd_validate,
+    cmd_update,
+    cmd_info,
+    cmd_install,
+)
 
 
 @click.group()
@@ -39,3 +45,9 @@ def validate():
 def info():
     """Show system information"""
     cmd_info.main()
+
+
+@cli.command()
+def install():
+    """Install collections"""
+    cmd_install.main()

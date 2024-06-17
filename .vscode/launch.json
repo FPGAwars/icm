@@ -30,6 +30,18 @@
             "internalConsoleOptions": "neverOpen",
             "preLaunchTask": "Clear terminal",
         },
+        {
+            "name": "ICM install",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "icm-run.py",
+            "args": ["install"],
+            //"console": "internalConsole",
+            "console": "integratedTerminal",
+            "justMyCode": true,
+            "internalConsoleOptions": "neverOpen",
+            "preLaunchTask": "Clear terminal",
+        },
     ]
 }
 
