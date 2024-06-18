@@ -35,7 +35,7 @@
             "type": "debugpy",
             "request": "launch",
             "program": "icm-run.py",
-            "args": ["install"],
+            "args": ["install","iceK"],
             //"console": "internalConsole",
             "console": "integratedTerminal",
             "justMyCode": true,

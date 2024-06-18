@@ -48,6 +48,11 @@ def info():
 
 
 @cli.command()
-def install():
+@click.argument("coltag", nargs=1)
+@click.option(
+    "-d", "--dev", is_flag=True, help="Install latest development version"
+)
+def install(coltag, dev):
     """Install collections"""
-    cmd_install.main()
+
+    cmd_install.main(coltag, dev)
