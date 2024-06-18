@@ -42,6 +42,18 @@
             "internalConsoleOptions": "neverOpen",
             "preLaunchTask": "Clear terminal",
         },
+        {
+            "name": "ICM ls",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "icm-run.py",
+            "args": ["ls"],
+            //"console": "internalConsole",
+            "console": "integratedTerminal",
+            "justMyCode": true,
+            "internalConsoleOptions": "neverOpen",
+            "preLaunchTask": "Clear terminal",
+        }
     ]
 }
 

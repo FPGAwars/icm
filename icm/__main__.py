@@ -14,6 +14,7 @@ from icm.commands import (
     cmd_update,
     cmd_info,
     cmd_install,
+    cmd_ls,
 )
 
 
@@ -56,3 +57,10 @@ def install(coltag, dev):
     """Install collections"""
 
     cmd_install.main(coltag, dev)
+
+
+@cli.command()
+def ls():
+    """List installed collections"""
+
+    cmd_ls.main()
