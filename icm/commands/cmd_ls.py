@@ -7,8 +7,6 @@ def main():
     """ENTRY POINT: List collections"""
 
     print()
-    print("--> LS!!!!!")
-    print()
 
     # -- Get context information
     folders = commons.Folders()
