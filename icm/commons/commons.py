@@ -200,7 +200,11 @@ class Collection:
           or None if there was an error
         """
         # -- Generate an http request
-        response = requests.get(url, timeout=10)
+        try:
+            response = requests.get(url, timeout=10)
+        except requests.exceptions.ReadTimeout:
+            print("TIMEOUT!")
+            return None
 
         # -- Check the status. If not ok, exit!
         if response.status_code != 200:

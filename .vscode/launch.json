@@ -43,6 +43,18 @@
             "preLaunchTask": "Clear terminal",
         },
         {
+            "name": "LIST",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "icm-run.py",
+            "args": ["lsgit"],
+            //"console": "internalConsole",
+            "console": "integratedTerminal",
+            "justMyCode": true,
+            "internalConsoleOptions": "neverOpen",
+            "preLaunchTask": "Clear terminal",
+        },
+        {
             "name": "ICM ls",
             "type": "debugpy",
             "request": "launch",

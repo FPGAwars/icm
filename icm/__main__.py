@@ -16,6 +16,7 @@ from icm.commands import (
     cmd_install,
     cmd_ls,
     cmd_rm,
+    cmd_list,
 )
 
 
@@ -50,6 +51,7 @@ def info():
 
 
 @cli.command()
+@click.pass_context
 @click.argument("coltag", nargs=1)
 @click.option(
     "-d", "--dev", is_flag=True, help="Install latest development version"
@@ -73,3 +75,9 @@ def rm(collection):
     """Remove colections"""
 
     cmd_rm.main(collection)
+
+
+@cli.command()
+def lsgit():
+    """List available collections in github"""
+    cmd_list.main()
