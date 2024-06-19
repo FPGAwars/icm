@@ -25,6 +25,11 @@ def main():
     # -- Sort the list of collections
     list_col.sort()
 
-    # -- Print all the available collections
-    for colection in list_col:
-        click.secho(f"• {colection}", fg="blue")
+    # -- List not empty: Print it!
+    if list_col:
+        # -- Print all the available collections
+        for colection in list_col:
+            click.secho(f"• {colection}", fg="blue")
+
+    else:
+        print("No installed collections")
