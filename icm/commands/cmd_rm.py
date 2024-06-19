@@ -1,9 +1,9 @@
 """Remove installed collections"""
 
 import shutil
-from icm.commons import commons
-
 import click
+
+from icm.commons import commons
 
 
 def main(coltag: str) -> None:
@@ -33,8 +33,8 @@ def main(coltag: str) -> None:
 
     # -- Parse the collection name: Get the name and version
     parsed_coltag = collection.parse_coltag2(coltag)
-    name = parsed_coltag['name']
-    version = parsed_coltag['version']
+    name = parsed_coltag["name"]
+    version = parsed_coltag["version"]
 
     # -- If there is name and version: The collection does not exists
     if name and version:
@@ -43,7 +43,9 @@ def main(coltag: str) -> None:
 
     # -- List all the collections that starts with "name-"
     list_col = [
-        file.name for file in folders.collections.glob(f"{name}-*") if file.is_dir()
+        file.name
+        for file in folders.collections.glob(f"{name}-*")
+        if file.is_dir()
     ]
 
     # -- No collection has a name that starts with "<name>-"

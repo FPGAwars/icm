@@ -257,7 +257,7 @@ class Collection:
 
         # -- No match. Incorrect collection tag
         return None
-    
+
     def parse_coltag2(self, coltag: str) -> dict:  # or | None:
         """Parse a collection name with optional tag version
         Ex: "iceK-0.1.4"
