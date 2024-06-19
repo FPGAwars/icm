@@ -257,3 +257,25 @@ class Collection:
 
         # -- No match. Incorrect collection tag
         return None
+    
+    def parse_coltag2(self, coltag: str) -> dict:  # or | None:
+        """Parse a collection name with optional tag version
+        Ex: "iceK-0.1.4"
+        Return:
+          None: There is an error
+          result: Dictionary with the calculated values
+            result['name']: Collection name
+            result['version']: Collection version (it could be "")
+        """
+        # -- Pattern for parsing strings in the format <name>[@<version>]
+        pattern = r"^(?P<name>[a-zA-Z0-9]+)(-(?P<version>\d+\.\d+(\.\d+)?))?$"
+
+        # Busca coincidencias en la cadena de entrada
+        match = re.match(pattern, coltag)
+
+        # -- TODO: Raise an exception!
+        if match:
+            return match.groupdict()
+
+        # -- No match. Incorrect collection tag
+        return None
