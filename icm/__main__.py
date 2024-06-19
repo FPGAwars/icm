@@ -15,6 +15,7 @@ from icm.commands import (
     cmd_info,
     cmd_install,
     cmd_ls,
+    cmd_rm,
 )
 
 
@@ -64,3 +65,11 @@ def ls():
     """List installed collections"""
 
     cmd_ls.main()
+
+
+@cli.command()
+@click.argument("collection", nargs=1)
+def rm(collection):
+    """Remove colections"""
+
+    cmd_rm.main(collection)

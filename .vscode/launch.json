@@ -53,6 +53,18 @@
             "justMyCode": true,
             "internalConsoleOptions": "neverOpen",
             "preLaunchTask": "Clear terminal",
+        },
+        {
+            "name": "ICM rm",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "icm-run.py",
+            "args": ["rm","iceK-0.1.3"],
+            //"console": "internalConsole",
+            "console": "integratedTerminal",
+            "justMyCode": true,
+            "internalConsoleOptions": "neverOpen",
+            "preLaunchTask": "Clear terminal",
         }
     ]
 }
