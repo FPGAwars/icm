@@ -1,15 +1,21 @@
 """List installed collections command"""
 
+import click
 from icm.commons import commons
 
 
 def main():
     """ENTRY POINT: List collections"""
 
-    print()
-
     # -- Get context information
+    ctx = commons.Context()
     folders = commons.Folders()
+
+    # -- Header
+    print()
+    click.secho(ctx.line, fg="blue")
+    click.secho("INSTALLED COLLECTIONS", fg="blue")
+    click.secho(ctx.line, fg="blue")
 
     # -- Get a list with all the collections (folders)
     list_col = [
@@ -21,4 +27,4 @@ def main():
 
     # -- Print all the available collections
     for colection in list_col:
-        print(f"* {colection}")
+        click.secho(f"• {colection}", fg="blue")
