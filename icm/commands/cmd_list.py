@@ -1,5 +1,6 @@
 """List available collections"""
 
+import click
 from icm.commons import commons
 
 
@@ -51,7 +52,9 @@ COLLECTION_STORE = {
 }
 
 
-def list_collections(collection: commons.Collection, typec: str) -> None:
+def list_collections(
+    collection: commons.Collection, typec: str, fg="white"
+) -> None:
     """List all the collections of a given type
     * collection: Context information
     * typec: Type of collections
@@ -59,8 +62,8 @@ def list_collections(collection: commons.Collection, typec: str) -> None:
       'dev'   : Development collections
     """
 
-    print(f"{'Name':<15}   {'Version':<8}  Description")
-    print(f"{'-'*15:<15}   {'-'*8:<8}  ----------")
+    click.secho(f"{'Name':<15}   {'Version':<8}  Description", fg=fg)
+    click.secho(f"{'─'*15:<15}   {'─'*8:<8}  {'─'*20}", fg=fg)
     for name in COLLECTION_STORE[typec]:
 
         # Calculate the url for the collection package.json file
@@ -74,35 +77,36 @@ def list_collections(collection: commons.Collection, typec: str) -> None:
             version = package["version"]
             desc = package["description"]
 
-            print(f"* {name:<15} {version:<8}  {desc}")
+            click.secho(f"• {name:<15} {version:<8}  {desc}", fg=fg)
 
         # -- There was an error
         else:
-            print(f"* {name:<15} {'xxx':<8}  {'xxx'}")
+            click.secho(f"• {name:<15} {'xxx':<8}  {'xxx'}", fg="red")
 
 
 def main():
     """ENTRY POINT: List available collections"""
 
     # -- Get context information
-    # ctx = commons.Context()
+    ctx = commons.Context()
     folders = commons.Folders()
     collection = commons.Collection(folders)
 
     print()
 
     # -- Header
-    print("-----------------------------------------")
-    print("AVAILABE COLLECTIONS")
-    print("-----------------------------------------")
-    print("STABLE  ")
-    print("--------------------------")
-    print()
-    list_collections(collection, "stable")
+    click.secho(ctx.line, fg="yellow")
+    click.secho("AVAILABLE COLLECTIONS", fg="yellow")
+    click.secho(ctx.line, fg="yellow")
 
     print()
-    print("--------------------------")
-    print("DEV  ")
-    print("--------------------------")
+    click.secho("─" * 50, fg="green")
+    click.secho("STABLE", fg="green")
+    click.secho("─" * 50, fg="green")
+    list_collections(collection, "stable", fg="green")
+
     print()
-    list_collections(collection, "dev")
+    click.secho("─" * 50, fg="blue")
+    click.secho("DEV", fg="blue")
+    click.secho("─" * 50, fg="blue")
+    list_collections(collection, "dev", fg="blue")
