@@ -55,10 +55,13 @@ def info():
 @click.option(
     "-d", "--dev", is_flag=True, help="Install latest development version"
 )
-def install(coltag, dev):
+@click.option(
+    "-a", "--all", is_flag=True, help="Install all stable collections"
+)
+def install(coltag, dev, all_):
     """Install collections"""
 
-    cmd_install.main(coltag, dev)
+    cmd_install.main(coltag, dev, all_)
 
 
 @cli.command()

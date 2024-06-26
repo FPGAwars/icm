@@ -2,54 +2,7 @@
 
 import click
 from icm.commons import commons
-
-
-# -- AVAILABLE collections
-COLLECTION_STORE = {
-    "stable": [
-        "iceK",
-        "iceWires",
-        "iceIO",
-        "iceGates",
-        "iceMux",
-        "iceCoders",
-        "iceFF",
-        "iceRegs",
-        "iceSRegs",
-    ],
-    "dev": [
-        "iceBoards",
-        "iceComp",
-        "iceArith",
-        "iceCounters",
-        "iceSignals",
-        "icePLL",
-        "iceLEDOscope",
-        "iceLEDs",
-        "iceHearts",
-        "iceInputs",
-        "iceRok",
-        "iceMachines",
-        "iceSerial",
-        "iceMem",
-        "iceMeassure",
-        "iceStack",
-        "iceFlash",
-        "iceBus",
-        "iceLCD",
-        "iceSynth",
-        "icecrystal",
-        "icebreaker",
-        "Collection-stdio",
-        "LOVE-FPGA-Collection",
-        "Collection-Jedi",
-        "CT11-collection",
-        "collection-generic",
-        "collection-logic",
-        "ice-chips-verilog",
-        "Icestudio-ArithmeticBlocks",
-    ],
-}
+from icm.commons import store
 
 
 def list_collections(
@@ -64,7 +17,7 @@ def list_collections(
 
     click.secho(f"{'Name':<15}   {'Version':<8}  Description", fg=fg)
     click.secho(f"{'─'*15:<15}   {'─'*8:<8}  {'─'*20}", fg=fg)
-    for name in COLLECTION_STORE[typec]:
+    for name in store.COLLECTIONS[typec]:
 
         # Calculate the url for the collection package.json file
         url = collection.package_url(name)

@@ -1,3 +1,5 @@
+"""Collection store!: Available collections"""
+
 COLLECTIONS = {
     "stable": [
         "iceK",

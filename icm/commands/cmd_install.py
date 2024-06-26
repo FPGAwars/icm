@@ -5,13 +5,15 @@ import sys
 
 import click
 from icm.commons import commons
+from icm.commons import store
 
 
-def main(coltags: tuple, dev: bool) -> None:
+def main(coltags: tuple, dev: bool = False, all_: bool = False) -> None:
     """ENTRY POINT: Install collections
     * coltag: tupla de nombres de la coleccion + tag opcional
       Ex. (iceK, iceK@0.1.4)
     * dev: Install development version
+    * all: Install ALL stable collections
     """
 
     # -- Get context information
@@ -19,6 +21,13 @@ def main(coltags: tuple, dev: bool) -> None:
     collection = commons.Collection(folders)
 
     print()
+
+    # -- "--all" has the highest priority
+    # -- First check it!
+    if all_:
+        for coltag in store.COLLECTIONS["stable"]:
+            install_collection(collection, coltag, dev)
+        return
 
     # -- Install the collections!
     for coltag in coltags:
