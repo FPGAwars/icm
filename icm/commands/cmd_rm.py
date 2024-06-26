@@ -19,7 +19,26 @@ def main(coltag: str, yes: bool) -> None:
     collection = commons.Collection(folders)
     print()
 
-    # -- Build the Path to the collection
+    # -- Remove the collection!
+    rm_collection(collection, folders, coltag, yes)
+
+
+
+def rm_collection(
+    collection: commons.Collection,
+    folders: commons.Folders,
+    coltag: str,
+    yes: bool = False
+) -> None:
+    """Remove one collection
+    * collection: Context information,
+    * folders: Context information,
+    * coltag: Name+version of the collection to remove
+      (Ex. iceK-0.1.4)
+    * yes: Respond "yes" automatically
+    """
+
+   # -- Build the Path to the collection
     abs_collection = folders.collections / coltag
 
     # -- Check if the collection exists, as it was typed bye the user
@@ -67,6 +86,7 @@ def main(coltag: str, yes: bool) -> None:
     if yes or click.confirm(f"{coltag}: Remove?"):
         # -- Remove the collection!
         shutil.rmtree(abs_collection)
+        print(f"  {coltag} removed!")
         return
 
     print("Aborted.")
