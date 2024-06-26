@@ -58,8 +58,13 @@ def info():
 @click.option(
     "-a", "--all", is_flag=True, help="Install all stable collections"
 )
-def install(coltag, dev, all_):
+# def install(coltag, dev, all):
+def install(**kwargs):
     """Install collections"""
+
+    coltag = kwargs["coltag"]
+    dev = kwargs["dev"]
+    all_ = kwargs["all"]
 
     cmd_install.main(coltag, dev, all_)
 
