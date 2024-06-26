@@ -70,10 +70,11 @@ def ls():
 
 @cli.command()
 @click.argument("collection", nargs=1)
-def rm(collection):
+@click.option("-y", "--yes", is_flag=True, help="Respond yes automatically")
+def rm(collection, yes):
     """Remove colections"""
 
-    cmd_rm.main(collection)
+    cmd_rm.main(collection, yes)
 
 
 @cli.command()

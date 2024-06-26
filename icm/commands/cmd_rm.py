@@ -6,10 +6,11 @@ import click
 from icm.commons import commons
 
 
-def main(coltag: str) -> None:
+def main(coltag: str, yes: bool) -> None:
     """ENTRY POINT: Remove collections
     * coltag: Name+version of the collection to remove
       (Ex. iceK-0.1.4)
+    * yes: Respond "yes" automatically
     """
 
     # -- Get context information
@@ -63,7 +64,7 @@ def main(coltag: str) -> None:
     abs_collection = folders.collections / coltag
 
     # -- Ask for confirmation!
-    if click.confirm(f"{coltag}: Remove?"):
+    if yes or click.confirm(f"{coltag}: Remove?"):
         # -- Remove the collection!
         shutil.rmtree(abs_collection)
         return
