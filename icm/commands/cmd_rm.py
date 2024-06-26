@@ -6,7 +6,7 @@ import click
 from icm.commons import commons
 
 
-def main(coltag: str, yes: bool) -> None:
+def main(coltags: tuple, yes: bool) -> None:
     """ENTRY POINT: Remove collections
     * coltag: Name+version of the collection to remove
       (Ex. iceK-0.1.4)
@@ -20,15 +20,15 @@ def main(coltag: str, yes: bool) -> None:
     print()
 
     # -- Remove the collection!
-    rm_collection(collection, folders, coltag, yes)
-
+    for coltag in coltags:
+        rm_collection(collection, folders, coltag, yes)
 
 
 def rm_collection(
     collection: commons.Collection,
     folders: commons.Folders,
     coltag: str,
-    yes: bool = False
+    yes: bool = False,
 ) -> None:
     """Remove one collection
     * collection: Context information,
@@ -38,7 +38,7 @@ def rm_collection(
     * yes: Respond "yes" automatically
     """
 
-   # -- Build the Path to the collection
+    # -- Build the Path to the collection
     abs_collection = folders.collections / coltag
 
     # -- Check if the collection exists, as it was typed bye the user
