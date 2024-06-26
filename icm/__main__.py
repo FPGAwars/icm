@@ -51,8 +51,7 @@ def info():
 
 
 @cli.command()
-@click.pass_context
-@click.argument("coltag", nargs=1)
+@click.argument("coltag", nargs=-1)
 @click.option(
     "-d", "--dev", is_flag=True, help="Install latest development version"
 )

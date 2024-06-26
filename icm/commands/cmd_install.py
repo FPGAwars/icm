@@ -7,10 +7,10 @@ import click
 from icm.commons import commons
 
 
-def main(coltag: str, dev: bool) -> None:
+def main(coltags: tuple, dev: bool) -> None:
     """ENTRY POINT: Install collections
-    * coltag: Nombre de la coleccion + tag opcional
-      Ex. iceK, iceK@0.1.4
+    * coltag: tupla de nombres de la coleccion + tag opcional
+      Ex. (iceK, iceK@0.1.4)
     * dev: Install development version
     """
 
@@ -20,14 +20,15 @@ def main(coltag: str, dev: bool) -> None:
 
     print()
 
-    # -- Install the collection!
-    install_main(collection, coltag, dev)
+    # -- Install the collections!
+    for coltag in coltags:
+        install_collection(collection, coltag, dev)
 
 
-def install_main(
+def install_collection(
     collection: commons.Collection, coltag: str, dev: bool = False
 ) -> None:
-    """Main function for installing collections
+    """Main function for installing only one collection
     * collection: Collection class (context)
     * coltag: name + version tag (Ex. iceK@0.1.4)
     * dev: Development flag
