@@ -105,7 +105,17 @@ def install(collection: commons.Collection, name: str, version="") -> None:
 
     # -- Get the name+tag
     nametag = collection.nametag(name, version)
+
+    # -- Build the collection path to the folder
+    folders = commons.Folders()
+    collection_path = folders.collections / nametag
+
     click.secho(f"Installing collection {nametag}", fg="yellow")
+
+    # -- Check if that collection already exists!
+    if collection_path.exists():
+        print("  Collection Already exists!")
+        return
 
     abs_filename = collection.abs_filename(version)
     url = collection.url(name, version)
