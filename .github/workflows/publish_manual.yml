@@ -1,0 +1,34 @@
+name: Publish Pypi
+
+# Manual activation
+on: [workflow_dispatch]
+    
+jobs:
+    # -- Publish a new Apio release
+    publish: 
+        runs-on: ubuntu-22.04
+        steps: 
+            # -- Checkout the main branch
+            - name: Checkout sources
+              uses: actions/checkout@v4
+              with:
+                ref: master
+
+            # -- Install and and configure python
+            - name: Set up Python
+              uses: actions/setup-python@v5
+              with:
+                  python-version: "3.9"
+
+            # -- Install all the dependencies needed
+            - name: Install dependencies
+              run: |
+                  make deps
+
+            # -- Publish to Pypi!!
+            - name: Publish to PyPi
+              env:
+                  FLIT_USERNAME: ${{ secrets.PYPI_USERNAME }}
+                  FLIT_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
+              run: |
+                  make publish
