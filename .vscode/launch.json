@@ -35,7 +35,7 @@
             "type": "debugpy",
             "request": "launch",
             "program": "icm-run.py",
-            "args": ["install","iceK", "iceWires", "--all"],
+            "args": ["install","iceCounter"],
             //"console": "internalConsole",
             "console": "integratedTerminal",
             "justMyCode": true,
