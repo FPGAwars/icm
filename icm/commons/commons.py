@@ -250,7 +250,7 @@ class Collection:
             result['version']: Collection version (it could be "")
         """
         # -- Pattern for parsing strings in the format <name>[@<version>]
-        pattern = r"^(?P<name>[a-zA-Z0-9]+)(@(?P<version>\d+\.\d+(\.\d+)?))?$"
+        pattern = r"^(?P<name>[a-zA-Z0-9-]+)(@(?P<version>\d+\.\d+(\.\d+)?))?$"
 
         # Busca coincidencias en la cadena de entrada
         match = re.match(pattern, coltag)
@@ -272,7 +272,7 @@ class Collection:
             result['version']: Collection version (it could be "")
         """
         # -- Pattern for parsing strings in the format <name>[@<version>]
-        pattern = r"^(?P<name>[a-zA-Z0-9]+)(-(?P<version>\d+\.\d+(\.\d+)?))?$"
+        pattern = r"^(?P<name>[a-zA-Z0-9-]+)(-(?P<version>\d+\.\d+(\.\d+)?))?$"
 
         # Busca coincidencias en la cadena de entrada
         match = re.match(pattern, coltag)

@@ -35,7 +35,7 @@
             "type": "debugpy",
             "request": "launch",
             "program": "icm-run.py",
-            "args": ["install","iceCounter"],
+            "args": ["install","Collection-Jedi"],
             //"console": "internalConsole",
             "console": "integratedTerminal",
             "justMyCode": true,
