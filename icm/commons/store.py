@@ -40,7 +40,7 @@ COLLECTIONS = {
         "collection-generic",
         "collection-logic",
         "Icestudio-ArithmeticBlocks",
-         "icebreaker-collection",
+        "icebreaker-collection",
         "icecrystal",
         "ice-chips-verilog",
     ],
