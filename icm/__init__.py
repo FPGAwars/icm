@@ -6,7 +6,7 @@
 # -- Author Jesús Arroyo
 # -- Licence GPLv2
 
-VERSION = (0, 5, 2)
+VERSION = (0, 5, 3)
 __version__ = ".".join([str(s) for s in VERSION])
 
 __title__ = "icm"
